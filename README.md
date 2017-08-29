@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0.svg?branch=ch-creating-and-integrating-flask-2098487)](https://travis-ci.org/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0)
+
 # Andela-Developer-Challenge---Shopping-List-V2.0
 
 COHORT 21
