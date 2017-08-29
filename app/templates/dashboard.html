@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang= "en" >
-    <head>
-        <meta charset="utf-8">
-        <title>Dashboard</title>    
-        <link rel="stylesheet" href="css/bootstrap.css">
-         <!-- Custom styles -->
-         <style>
-            body {
-                padding: 54px;
-            }
-        </style>
-        </head>
-    <body>
-        
-        <nav class="navbar nav-collapse collapse right">
+{% extends "base.html" %}
+{% block page_title%}Dashboard{% endblock%}
+{% block page_body %}
+        <nav class="navbar nav-collapse ">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
-                <li><a href=index.html>Home</a></li>
-                <li class=" active"><a href=dashboard.html>Dashboard</a></li>
-                <li><a href=login.html>Login</a></li>
-                <li><a href=signup.html>SignUp</a></li>
+                <li><a href="/">Home</a></li>
+                <li class=" active"><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">SignUp</a></li>
                 </ul>
             </div>
         </nav>
@@ -46,21 +34,21 @@
                     <td><input type="checkbox" name ="" /></td>
                     <td>Anna</td>
                     <td>4</td>
-                    <td class=" btn-link"><a href="details.html">details</a></td>
+                    <td class=" btn-link"><a href="/details">details</a></td>
                     <td>28-08-2017</td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" name ="" /></td>
                     <td>Anna</td>
                     <td>4</td>
-                    <td class=" btn-link"><a href="details.html">details</a></td>
+                    <td class=" btn-link"><a href="/details">details</a></td>
                     <td>28-08-2017</td>
                 </tr>
                 <tr>
                     <td><input type="checkbox" name ="" /></td>
                     <td>Anna</td>
                     <td>4</td>
-                    <td class=" btn-link"><a href="details.html">details</a></td>
+                    <td class=" btn-link"><a href="/details">details</a></td>
                     <td>28-08-2017</td>
                 </tr>
 
@@ -68,5 +56,4 @@
             </table>
             </div>
           </div>
-    </body>
-</html>
+{% endblock%}
