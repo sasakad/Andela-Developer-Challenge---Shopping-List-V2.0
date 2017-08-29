@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang= "en" >
+    <head>
+        <meta charset="utf-8">
+        <title>{% block page_title %}{% endblock %}</title>    
+        <link rel="stylesheet" href="static/css/bootstrap.css">
+         <!-- Custom styles -->
+         <style>
+            body {
+                padding: 54px;
+            }
+        </style>
+        </head>
+        <body>
+            {% block page_body %}
+            {% endblock %}
+            <footer class="footer">
+                <p>© 2016 <a href="/">Shopping List App</a></p>
+            </footer>
+        
+        </body>
+        </html>
