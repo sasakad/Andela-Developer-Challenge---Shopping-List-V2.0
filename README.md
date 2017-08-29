@@ -4,6 +4,7 @@ COHORT 21
 ## Designs Folder
     Homepage : index.html
     Dashboard: dashboard.html
+    Details: deatails.html
     Login: login.html
     Signup: signup.html
 ## UML For The pages
