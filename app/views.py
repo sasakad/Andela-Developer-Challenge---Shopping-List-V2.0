@@ -18,5 +18,5 @@ def dasboard():
 def details():
    return render_template("details.html")
 @app.route('/login')
-def about():
+def login():
     return render_template("login.html")
