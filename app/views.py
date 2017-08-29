@@ -11,10 +11,10 @@ def index():
 @app.route('/signup')
 def signup():
     return render_template("signup.html")
-@app.route('/dasboard')
+@app.route('/dashboard')
 def dasboard():
     return render_template("dashboard.html")
-@app.route('/dashboard/details')
+@app.route('/details')
 def details():
     return render_template("details.html")
 @app.route('/login')
