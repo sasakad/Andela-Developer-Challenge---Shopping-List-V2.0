@@ -26,6 +26,20 @@ class TestCasesShoppingList(unittest.TestCase):
         self._list.list_of_shopping_lists = [{'user': 'dalton', 'name': 'Party'},{'user': 'dalton', 'name': 'Birthday'}]
         msg = self._list.create( "dalton", "Party")
         self.assertEqual(msg, "List already exists.")
+    def test_successful_editing_list(self):
+
+        self._list.list_of_shopping_lists = [{'user': 'dalton', 'name': 'Party'}]
+        msg = self._list.edit(
+            'Birthday', 'Party', "dalton")
+        self.assertEqual(msg, [{'user': 'dalton', 'name': 'Birthday'}])
+
+    def test_edit_already_existing_list(self):
+
+        self._list.list_of_shopping_lists = [{'user': 'dalton', 'name': 'Party'}, {
+            'user': 'dalton', 'name': 'Birthday'}]
+        msg = self._list.edit(
+            'Birthday', 'Party', "dalton")
+        self.assertEqual(msg, "Shopping list name already exists")
 
 if __name__ == '__main__':
     unittest.main()
