@@ -11,7 +11,13 @@
             }
         </style>
         </head>
-        <body>
+        <body>  
+            {%if response in response%}
+            <div class="alert" role="alert">
+                {{ response }}
+            </div>
+            {%endif%}
+            <script src="static/js/bootstrap.js"></script>  
             {% block page_body %}
             {% endblock %}
             <footer class="footer">
