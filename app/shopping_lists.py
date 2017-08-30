@@ -24,4 +24,17 @@ class ShoppingLists(object):
         else:
             return "Invalid characters"
         return [item for item in self.list_of_shopping_lists if item['user'] == user]
-    
+    def edit(self, new_name, old_name, user):
+        """METHOD FOR EDITING NAME OF SHOPPING LIST """
+        if all(c in ascii_letters+'-' for c in new_name):
+            users_list_of_shopping_lists = \
+            [item for item in self.list_of_shopping_lists if item['user'] == user]
+            for item in users_list_of_shopping_lists:
+                if new_name == item['name']:
+                    return "Shopping list name already exists"
+                elif old_name == item['name']:
+                    del item['name']
+                    item.update({'name': new_name})
+        else:
+            return "Invalid characters"
+        return [item for item in self.list_of_shopping_lists if item['user'] == user]
