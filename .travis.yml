@@ -12,7 +12,8 @@ install:
   - pip install coveralls
 # Testing 
 script:
-  - nosetests --with-coverage --cover-package=tests && coverage report
+  - nosetests --with-coverage --cover-package=tests 
+  - coverage run --source=app -m nose && coverage report
 
 after-sucess:
   - coveralls
