@@ -12,6 +12,8 @@ Build status of continous integration by travis,
 
 ![classes uml diagram](https://github.com/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0/blob/ch-creating-and-integrating-flask-2098487/uml_diagrams/pages.png)
 
+## Online View
+To view this app on heroku [Click Here](https://shopping-list-app-c21-parseen.herokuapp.com/)
 ## Installation
 1. Clone this repository
 
