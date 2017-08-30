@@ -6,6 +6,9 @@ class ShoppingLists(object):
 
     def __init__(self):
         self.list_of_shopping_lists = []
+    
+    def users_list(self, user):
+        return [item for item in self.list_of_shopping_lists if item['user'] == user]
 
     def create(self, user, list_name):
         """ METHOD FOR CREATING SHOPPING LIST """
