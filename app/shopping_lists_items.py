@@ -31,10 +31,22 @@ class ShoppingListItems(object):
         else:
             return "Invalid characters"
 
-
     def delete(self, list_name):
         """METHOD FOR DELETING ITEM FROM SHOPPING LIST """
         for item in self.list_of_shopping_list_items:
             if item['list'] == list_name:
                 del item
                 break
+    def edit(self, new_name, old_name, list_name, user):
+        """METHOD FOR EDITING ITEM'S NAME IN SHOPPING LIST"""
+        # Get users items
+        users_items = self.get_user_items(user, list_name)
+        for item in users_items:
+            if item['list'] == list_name:
+                if item['name'] != new_name:
+                    if item['name'] == old_name:
+                        del item['name']
+                        item.update({'name': new_name,})
+                else:
+                    return "Name already exists"
+        return users_items
