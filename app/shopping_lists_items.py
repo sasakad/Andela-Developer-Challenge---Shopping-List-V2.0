@@ -1,5 +1,6 @@
 """ SHOPPING LISTS ITEMS MANAGEMENT """
 from string import ascii_letters
+from datetime import date
 
 class ShoppingListItems(object):
     """ CLASS FOR ADDING, EDITING AND DELETING SHOPPING LIST ITEMS """
@@ -25,7 +26,8 @@ class ShoppingListItems(object):
             self.list_of_shopping_list_items.append({
                 'name': item_name,
                 'list': list_name,
-                'user': user
+                'user': user,
+                'date_create': str(date.today()),
             })
             return self.get_user_items(user, list_name)
         else:
