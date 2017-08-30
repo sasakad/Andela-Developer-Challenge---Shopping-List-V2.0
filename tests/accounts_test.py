@@ -1,6 +1,6 @@
 """ TESTS FOR USER ACCOUNTS CLASS"""
 import unittest
-from app.accounts import Accounts
+from accounts import Accounts
 
 class AccountsTestCases(unittest.TestCase):
     """TESTS FOR LOGIN AND REGISTRATION MODULES"""
