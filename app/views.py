@@ -2,6 +2,7 @@
 
 from flask import render_template, request, session
 from app import app, usr_account, shopn_list
+from app import table_creator
 @app.route('/')
 def index():
     """LOADS HOME PAGE"""
@@ -22,19 +23,23 @@ def signup():
         else:
             return render_template("signup.html", response = msg)
     return render_template("signup.html")
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dasboard():
     user = session['email']
     user_shopping_lists = shopn_list.users_list(user)
     if request.method == 'POST':
         list_name = request.form['list-name']
-        msg = shopn_list.create(user, list_name)
-        if isinstance(msg, list):
-            return render_template('dashboard.html', shoppinglist=msg)
+        response = shopn_list.create(user, list_name)
+        if isinstance(response, list):
+            if response == []:
+                return render_template('dashboard.html', response='There are no Shopping lists please add some')
+            else:
+                table = table_creator.ItemTable(response)
+                return render_template('dashboard.html', table_out=table)
         else:
-            return render_template('dashboard.html', resp=msg, shoppinglist=user)
-    return render_template('shoppinglist.html', shoppinglist=user_shopping_lists)
+            return render_template('dashboard.html', response=response)
     return render_template("dashboard.html")
+
 @app.route('/details')
 def details():
     return render_template("details.html")
@@ -50,3 +55,17 @@ def login():
         else:
             return render_template('login.html', response=msg)
     return render_template("login.html")
+
+@app.route('/add', methods=['GET','POST'])
+def add():
+    user = session['email']
+    if request.method == 'POST':
+        list_name = request.form['list_name']
+        add_response = shopn_list.create(user, list_name)
+        if add_response == shopn_list.list_of_shopping_lists:
+            text_out = "Successfully added"
+            return render_template('dashboard.html', response=text_out, table_out=table_creator.ItemTable(add_response))
+        else:
+            return render_template('dashboard.html', response=add_response, 
+        table_out=table_creator.ItemTable(shopn_list.list_of_shopping_lists))
+    return render_template('dashboard.html')
