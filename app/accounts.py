@@ -5,15 +5,15 @@ class Accounts(object):
     def __init__(self):
 
         self.list_of_accounts = []
-def login(self, email, pwd):
-        """ Handles Login Requests"""
-        for account in self.list_of_accounts:
-            if email == account['email']:
-                if pwd == account['pwd']:
-                    return "Success!"
-                else:
-                    return "Invalid email, password combination"
-        return "Account not registered, sign up"
+    def login(self, email, pwd):
+            """ Handles Login Requests"""
+            for account in self.list_of_accounts:
+                if email == account['email']:
+                    if pwd == account['pwd']:
+                        return "Success!"
+                    else:
+                        return "Invalid email, password combination"
+            return "Account not registered, sign up"
 
     def registration(self, uname, email, pwd, pwd_confirm):
         """Method for creating new accounts."""
