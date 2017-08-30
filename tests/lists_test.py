@@ -1,12 +1,12 @@
 """TESTS FOR SHOPPING LISTS"""
 import unittest
-from app.shopping_lists import ShoppingLists
+from app import shopping_lists
 
 
 class TestCasesShoppingList(unittest.TestCase):
 
     def setUp(self):
-        self._list = ShoppingLists()
+        self._list = shopping_lists.ShoppingLists()
 
     def tearDown(self):
         del self._list

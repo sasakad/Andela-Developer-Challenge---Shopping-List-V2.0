@@ -1,11 +1,11 @@
 """ TESTS FOR USER ACCOUNTS CLASS"""
 import unittest
-from accounts import Accounts
+from app import accounts
 
 class AccountsTestCases(unittest.TestCase):
     """TESTS FOR LOGIN AND REGISTRATION MODULES"""
     def setUp(self):
-        self.user = Accounts()
+        self.user = accounts.Accounts()
     
     def tearDown(self):
         del self.user
