@@ -12,4 +12,4 @@ COHORT 21
 
 ## UML For The pages
 
-![pages uml diagram](https://github.com/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0/raw/0a9e17c0627b9e75fe145a43d5546a50d3ce7ebc/uml_diagrams/pages.png)
+![pages uml diagram](https://github.com/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0/blob/ch-creating-and-integrating-flask-2098487/uml_diagrams/pages.png)
