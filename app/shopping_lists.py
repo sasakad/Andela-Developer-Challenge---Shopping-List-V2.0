@@ -38,3 +38,13 @@ class ShoppingLists(object):
         else:
             return "Invalid characters"
         return [item for item in self.list_of_shopping_lists if item['user'] == user]
+
+    def delete(self, list_name, user):
+        """ METHOD FOR DELETING SHOPPING LISTS"""
+        for item in self.list_of_shopping_lists:
+            item_index = self.list_of_shopping_lists.index(item)
+            if item['name'] == list_name:
+                del self.list_of_shopping_lists[item_index]
+                break
+        return [item for item in self.list_of_shopping_lists if item['user'] == user]
+    
