@@ -31,4 +31,10 @@ class ShoppingListItems(object):
         else:
             return "Invalid characters"
 
-    
+
+    def delete(self, list_name):
+        """METHOD FOR DELETING ITEM FROM SHOPPING LIST """
+        for item in self.list_of_shopping_list_items:
+            if item['list'] == list_name:
+                del item
+                break
