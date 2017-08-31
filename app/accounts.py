@@ -5,8 +5,14 @@ class Accounts(object):
     def __init__(self):
 
         self.list_of_accounts = []
+    def get_uname_by_email(self, email):
+        """Returns username when provided with email"""
+        for account in self.list_of_accounts:
+            if email == account['email']:
+                return account['uname']
+
     def login(self, email, pwd):
-            """ Handles Login Requests"""
+            """Method for  Handling Login Requests"""
             for account in self.list_of_accounts:
                 if email == account['email']:
                     if pwd == account['pwd']:
