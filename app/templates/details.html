@@ -11,53 +11,16 @@
                 </ul>
             </div>
         </nav>
-        <div class="button">
-        <button class="btn btn-danger pull-right">Delete</button>
-        <button class="btn btn-success pull-right">Add</button>
-        </div>
+        <form action="/add_item" method="POST">
+            <button type="submit" class="btn btn-danger pull-right">Delete</button>
+            <button type="submit" class="btn btn-success pull-right">Add</button>
+            <input type="text" class = "input-xlarge pull-right" placeholder="Item name" name="item_name"></input>       
+        </form>
         <div id="legend">
                 <legend class="">Shopping List Details</legend>
         </div>
         <div class="table-responsive table-striped table-hover table-condensed">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Item Name</th>
-                  <th>Number of Items</th>
-                  <th>Date Added</th>
-                  <th>Price</th>
-                  <th>Total Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                    <td><input type="checkbox" name ="" /></td>
-                    <td>Mc Mohan</td>
-                    <td>1</td>
-                    <td>28-08-2017</td>
-                    <td>600</td>
-                    <td>600</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name ="" /></td>
-                    <td>Chrome</td>
-                    <td>3</td>
-                    <td>28-08-2017</td>
-                    <td>250</td>
-                    <td>750</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name ="" /></td>
-                    <td>Best</td>
-                    <td>1</td>
-                    <td>28-08-2017</td>
-                    <td>400</td>
-                    <td>400</td>
-                </tr>
-
-              </tbody>
-            </table>
+            {{table_out}}
             </div>
           </div>
 {% endblock%}
