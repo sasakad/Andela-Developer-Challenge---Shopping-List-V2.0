@@ -1,6 +1,7 @@
 """TESTS FOR SHOPPING LISTS"""
 import unittest
 from app import shopping_lists
+from datetime import date
 
 
 class TestCasesShoppingList(unittest.TestCase):
@@ -14,7 +15,7 @@ class TestCasesShoppingList(unittest.TestCase):
     def test_sucessful_create(self):
         msg = self._list.create( "dalton", 'Party')
         self.assertEqual(
-            msg, [{'user': 'dalton', 'name': 'Party'}])
+            msg, [{'user': 'dalton', 'name': 'Party','date': str(date.today()),'details': "<a href='/details'>Item Details</a>",}])
     
     def test_for_invalid_characters(self):
 
@@ -45,8 +46,8 @@ class TestCasesShoppingList(unittest.TestCase):
             'user': 'dalton', 'name': 'Party'}, {'user': 'dalton', 'name': 'Birthday'}]
         msg = self._list.delete(
             'Rave', "dalton")
-        self.assertEqual(msg, [{
-            'user': 'dalton', 'name': 'Party'}, {'user': 'dalton', 'name': 'Birthday'}])
+        self.assertEqual(msg,'Rave has been Deleted')
+         #[{'user': 'dalton', 'name': 'Party'}, {'user': 'dalton', 'name': 'Birthday'}]''')
 
 if __name__ == '__main__':
     unittest.main()

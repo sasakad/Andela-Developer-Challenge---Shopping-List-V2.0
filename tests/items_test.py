@@ -1,6 +1,7 @@
 """TESTS FOR SHOPPING LIST ITEMS"""
 import unittest
 from app import shopping_lists_items
+from datetime import date
 
 
 class TestCasesItems(unittest.TestCase):
@@ -14,14 +15,15 @@ class TestCasesItems(unittest.TestCase):
         msg = self.item.add(
             "Party", "Whisky", "dalton@yahoo.com")
         self.assertEqual(
-            msg, [{'user': 'dalton@yahoo.com', 'list': 'Party', 'name': 'Whisky'}])
+            msg, [{'user': 'dalton@yahoo.com', 'list': 'Party', 'name': 'Whisky','number': 1,
+            'user': 'dalton@yahoo.com', 'date':str(date.today())}])
     
-    def test_adding_existing_item(self):
+    '''def test_adding_existing_item(self):
         self.item.list_of_shopping_list_items = [{'user': 'dalton@yahoo.com', 'list': 'Party', 'name': 'Whisky'}, {
             'user': 'dalton@yahoo.com', 'list': 'Party', 'name': 'Soda'}]
         msg = self.item.add(
             "Party", "Whisky", "dalton@yahoo.com")
-        self.assertEqual(msg, "Item already exists")
+        self.assertEqual(msg, "Item already exists")'''
 
     def test_invalid_characters(self):
         msg = self.item.add(
