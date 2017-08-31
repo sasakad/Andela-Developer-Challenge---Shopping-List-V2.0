@@ -27,7 +27,7 @@ class ShoppingListItems(object):
                 'name': item_name,
                 'list': list_name,
                 'user': user,
-                'date_create': str(date.today()),
+                'date': str(date.today()),
             })
             return self.get_user_items(user, list_name)
         else:
