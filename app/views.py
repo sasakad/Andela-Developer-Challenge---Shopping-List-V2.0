@@ -18,7 +18,7 @@ def signup():
         pwd_confirmed = request.form['password_confirm']
 
         msg = usr_account.registration(uname, email, pwd, pwd_confirmed)
-        if msg == "Your account is now registered please proceed to login":
+        if msg == "Your account is now registered please proceed to login" or msg == "Your Account Already Active. Proceed to login ":
             return render_template("login.html", response= msg)
         else:
             return render_template("signup.html", response = msg)
