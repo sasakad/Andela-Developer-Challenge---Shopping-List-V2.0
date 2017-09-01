@@ -1,0 +1,19 @@
+# Project that we are testing
+
+language: python
+
+# Version of python to test
+python:
+  - "3.5"
+
+# Install dependencies
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+# Testing 
+script:
+  - nosetests --with-coverage --cover-package=tests 
+  - coverage run --source=app -m nose && coverage report
+
+after-sucess:
+  - coveralls

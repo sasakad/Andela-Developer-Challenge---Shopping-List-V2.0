@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block page_title%}Dashboard{% endblock%}
+{% block page_body %}
+<div class="container">
+        <fieldset>
+            <form action="" method="POST">
+                <h5 class="form-signin-heading">Dashboard</h5>
+                <input type="text" class = "input-xlarge pull-right" placeholder="List name" name="list_name"></input>
+                <button type="submit" class="btn btn-outline-danger pull-right" value="delete" onclick='this.form.action="/del_list";'>Delete</button>
+                <button type="submit" class="btn btn-outline-success pull-right" value="add" onclick='this.form.action="/add_list";'>Add</button>       
+            </form>
+        <div class="table-responsive table-striped table-hover table-condensed">
+            {{table_out}}
+        </div>
+        </div>
+        </fieldset>
+    </div>
+{% endblock%}

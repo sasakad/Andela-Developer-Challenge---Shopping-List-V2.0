@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block page_title %}Details{% endblock%}
+{% block page_body %}
+<div class="container">
+        <form action="" method="POST">
+            <h5 class="form-signin-heading">Details</h5>
+            <input type="text" class = "input-xlarge pull-right" placeholder="Item name" name="item_name"></input>
+            <button type="submit" class="btn btn-outline-danger pull-right" value="delete" onclick='this.form.action="/del_item";'>Delete</button>
+            <button type="submit" class="btn btn-outline-success pull-right" value="add" onclick='this.form.action="/add_item";'>Add</button>       
+        </form>
+        <div class="table-responsive table-striped table-hover table-condensed">
+            {{table_out}}
+        </div>
+</div>
+{% endblock%}
+          
