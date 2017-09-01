@@ -14,6 +14,8 @@ class ShoppingLists(object):
         """ METHOD FOR CREATING SHOPPING LIST """
         if list_name == '':
             return 'Name cannot be blank'
+        elif list_name not in self.list_of_shopping_lists:
+            return "Item not found"
         elif all(c in ascii_letters+'-' for c in list_name):
             users_list_of_shopping_lists = \
             [item for item in self.list_of_shopping_lists if item['user'] == user]
@@ -47,10 +49,16 @@ class ShoppingLists(object):
 
     def delete(self, list_name, user):
         """ METHOD FOR DELETING SHOPPING LISTS"""
-        for item in self.list_of_shopping_lists:
-            item_index = self.list_of_shopping_lists.index(item)
-            if item['name'] == list_name:
-                del self.list_of_shopping_lists[item_index]
-                break
-        return self.users_list(user)
+        if list_name == '':
+            return 'Name cannot be blank'
+        elif list_name not in self.list_of_shopping_lists:
+            return "Item not found"
+        else:
+            for item in self.list_of_shopping_lists:
+                item_index = self.list_of_shopping_lists.index(item)
+                if item['name'] == list_name:
+                    del self.list_of_shopping_lists[item_index]
+                    return list_name + " has been Deleted"
+                    break
+            return self.users_list(user)
     
