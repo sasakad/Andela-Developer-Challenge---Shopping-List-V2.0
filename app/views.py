@@ -49,7 +49,7 @@ def login():
             session['username']= usr_account.get_uname_by_email(email)
             return render_template('dashboard.html', response=msg)
         else:
-            return render_template('login.html', response=msg)
+            return render_template('signup.html', response=msg)
     return render_template("login.html")
 
 @app.route('/add_list', methods=['GET','POST'])
