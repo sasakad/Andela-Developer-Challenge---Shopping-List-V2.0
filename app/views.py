@@ -41,8 +41,8 @@ def dashboard():
     user = session['username']
     table=list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
     return render_template("dashboard.html", table_out = table)
-@login_required
 @app.route('/details', methods=['GET','POST'])
+@login_required
 def details():
     """Loads the details page"""
     user = session['username']
@@ -63,13 +63,14 @@ def login():
         else:
             return render_template('signup.html', response=msg)
     return render_template("login.html")
-@login_required
 @app.route('/logout')
+@login_required
 def log_out():
     session.clear()
     return render_template('index.html',response="You are now logged Out")
 
 @app.route('/add_list', methods=['GET','POST'])
+@login_required
 def add():
     user = session['username']
     if request.method == 'POST':
@@ -83,6 +84,7 @@ def add():
         table_out=list_table_creator.ItemTable(shopn_list.list_of_shopping_lists))
     return redirect(url_for('dashboard'))
 @app.route('/del_list', methods=['GET','POST'])
+@login_required
 def del_list():
     user = session['username']
     if request.method == 'POST':
@@ -95,9 +97,8 @@ def del_list():
             return render_template('dashboard.html', response=del_response, 
         table_out=list_table_creator.ItemTable(shopn_list.list_of_shopping_lists))
     return redirect(url_for('dashboard'))
-
-
 @app.route('/add_item', methods=['GET','POST'])
+@login_required
 def add_item():
     user = session['username']
     if request.method == 'POST':
@@ -112,6 +113,7 @@ def add_item():
     return redirect(url_for('details'))
 
 @app.route('/del_item', methods=['GET','POST'])
+@login_required
 def del_item():
     user = session['username']
     if request.method == 'POST':
