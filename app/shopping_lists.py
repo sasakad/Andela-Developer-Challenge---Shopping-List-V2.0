@@ -14,8 +14,6 @@ class ShoppingLists(object):
         """ METHOD FOR CREATING SHOPPING LIST """
         if list_name == '':
             return 'Name cannot be blank'
-        elif list_name not in self.list_of_shopping_lists:
-            return "Item not found"
         elif all(c in ascii_letters+'-' for c in list_name):
             users_list_of_shopping_lists = \
             [item for item in self.list_of_shopping_lists if item['user'] == user]
