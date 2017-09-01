@@ -41,12 +41,12 @@ class ShoppingListItems(object):
         """METHOD FOR DELETING ITEM FROM SHOPPING LIST """
         if item_name == '':
             return 'Name cannot be blank'
-        elif item_name not in self.list_of_shopping_list_items:
+        elif item_name not in [item['name'] for item in self.list_of_shopping_list_items]:
             return "Item not found"
         else:
             for item in self.list_of_shopping_list_items:
                 if item['name'] == item_name:
-                    del item
+                    self.list_of_shopping_list_items.remove(item)
                     return self.list_of_shopping_list_items
     def edit(self, new_name, old_name, list_name, user):
         """METHOD FOR EDITING ITEM'S NAME IN SHOPPING LIST"""
