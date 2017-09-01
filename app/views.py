@@ -1,13 +1,24 @@
 """""FLASK'S VIEW FILE"""""
 
+from functools import wraps
 from flask import render_template, request, session, redirect, url_for
 from app import app, usr_account, shopn_list, shopn_items
 from app import list_table_creator, item_table_creator
+
 @app.route('/')
 def index():
     """LOADS HOME PAGE"""
     return render_template("index.html")
 
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'username' in session:
+            return f(*args, **kwargs)
+        else:
+            msg = "Please login"
+            return render_template("login.html", response=msg)
+    return wrap
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     """SIGNS UP NEW USER"""
@@ -24,12 +35,13 @@ def signup():
             return render_template("signup.html", response = msg)
     return render_template("signup.html")
 @app.route('/dashboard', methods=['GET', 'POST'])
-def dasboard():
+@login_required
+def dashboard():
     """Loads the dashboard page"""
     user = session['username']
     table=list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
     return render_template("dashboard.html", table_out = table)
-
+@login_required
 @app.route('/details', methods=['GET','POST'])
 def details():
     """Loads the details page"""
@@ -51,6 +63,11 @@ def login():
         else:
             return render_template('signup.html', response=msg)
     return render_template("login.html")
+@login_required
+@app.route('/logout')
+def log_out():
+    session.clear()
+    return render_template('index.html',response="You are now logged Out")
 
 @app.route('/add_list', methods=['GET','POST'])
 def add():
