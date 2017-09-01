@@ -49,7 +49,7 @@ class ShoppingLists(object):
         """ METHOD FOR DELETING SHOPPING LISTS"""
         if list_name == '':
             return 'Name cannot be blank'
-        elif list_name not in self.list_of_shopping_lists:
+        elif list_name not in [item['name'] for item in self.list_of_shopping_lists]:
             return "Item not found"
         else:
             for item in self.list_of_shopping_lists:
