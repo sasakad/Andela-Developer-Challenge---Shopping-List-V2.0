@@ -39,15 +39,15 @@ def signup():
 def dashboard():
     """Loads the dashboard page"""
     user = session['username']
-    table=list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
-    return render_template("dashboard.html", table_out = table)
+    table_response=list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+    return render_template("dashboard.html", table_out = table_response)
 @app.route('/details', methods=['GET','POST'])
 @login_required
 def details():
     """Loads the details page"""
     user = session['username']
-    table=item_table_creator.ItemTable(shopn_items.list_of_shopping_list_items) 
-    return render_template("details.html", table_out = table)
+    table_response=item_table_creator.ItemTable(shopn_items.list_of_shopping_list_items) 
+    return render_template("details.html", table_out = table_response)
 
     return render_template("details.html")
 @app.route('/login', methods=['GET','POST'] )
@@ -77,11 +77,13 @@ def add():
         list_name = request.form['list_name']
         add_response = shopn_list.create(user, list_name)
         if add_response == shopn_list.list_of_shopping_lists:
+            table_response = list_table_creator.ItemTable(add_response)
             text_out = "Successfully added"
-            return render_template('dashboard.html', response=text_out, table_out=list_table_creator.ItemTable(add_response))
+            return render_template('dashboard.html', response=text_out, table_out= table_response)
         else:
-            return render_template('dashboard.html', response=add_response, 
-        table_out=list_table_creator.ItemTable(shopn_list.list_of_shopping_lists))
+            table_response = list_table_creator.ItemTable(add_response)
+            text_out = "Unable to add the List Please Try again"
+            return render_template('dashboard.html', table_out = table_response)
     return redirect(url_for('dashboard'))
 @app.route('/del_list', methods=['GET','POST'])
 @login_required
@@ -92,10 +94,11 @@ def del_list():
         del_response = shopn_list.delete(list_name, user)
         if del_response == shopn_list.list_of_shopping_lists:
             text_out = "Successfully Removed"
-            return render_template('dashboard.html', response=text_out, table_out=list_table_creator.ItemTable(del_response))
+            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            return render_template('dashboard.html', response=text_out, table_out=table_response)
         else:
-            return render_template('dashboard.html', response=del_response, 
-        table_out=list_table_creator.ItemTable(shopn_list.list_of_shopping_lists))
+            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            return render_template('dashboard.html', response=del_response, table_out= table_response)
     return redirect(url_for('dashboard'))
 @app.route('/add_item', methods=['GET','POST'])
 @login_required
@@ -106,10 +109,11 @@ def add_item():
         add_response = shopn_items.add('hello',item_name,user)
         if add_response == shopn_items.list_of_shopping_list_items:
             text_out = "Successfully added"
-            return render_template('details.html', response=text_out, table_out=item_table_creator.ItemTable(add_response))
+            table_response = item_table_creator.ItemTable(add_response)
+            return render_template('details.html', response=text_out, table_out=table_response)
         else:
-            return render_template('details.html', response=add_response, 
-        table_out=item_table_creator.ItemTable(shopn_items.list_of_shopping_list_items))
+            table_response = item_table_creator.ItemTable(shopn_items.list_of_shopping_list_items)
+            return render_template('details.html', response=add_response, table_out=table_response)
     return redirect(url_for('details'))
 
 @app.route('/del_item', methods=['GET','POST'])
@@ -124,8 +128,9 @@ def del_item():
             return render_template('details.html', response=text_out)
         elif isinstance(del_response, list):
             text_out = "Successfully Removed"
-            return render_template('details.html', response=text_out, table_out=item_table_creator.ItemTable(del_response))
+            table_response = item_table_creator.ItemTable(del_response)
+            return render_template('details.html', response=text_out, table_out=table_response)
         else:
-            return render_template('details.html', response=del_response, 
-        table_out=item_table_creator.ItemTable(shopn_items.list_of_shopping_list_items))
+            table_response = item_table_creator.ItemTable(shopn_items.list_of_shopping_list_items)
+            return render_template('details.html', response=del_response, table_out=table_response)
     return redirect(url_for('details'))
