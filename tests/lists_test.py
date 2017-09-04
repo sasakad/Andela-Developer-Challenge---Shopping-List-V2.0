@@ -15,7 +15,7 @@ class TestCasesShoppingList(unittest.TestCase):
     def test_sucessful_create(self):
         msg = self._list.create( "dalton", 'Party')
         self.assertEqual(
-            msg, [{'user': 'dalton', 'name': 'Party','date': str(date.today()),'details': "<a href='/details'>Item Details</a>",}])
+            msg, [{'user': 'dalton', 'name': 'Party','date': str(date.today())}])
     
     def test_for_invalid_characters(self):
 
