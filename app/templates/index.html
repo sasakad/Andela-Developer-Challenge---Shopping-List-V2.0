@@ -5,9 +5,25 @@
             <div class=" container">
                 <h1 class=" display-4">Welcome</h1>
                 <p class=" lead">The Ultimate Shopping List App</p>
-                <a href="/login" class="btn btn-sm btn-outline-success" role="button" aria-disabled="true">Login</a>
-                <a href="/signup" class="btn btn-sm btn-outline-success" role="button" aria-disabled="true">Signup</a>
             </div>
-    </div>   
+    </div>
+    <div class="text-center" style=" background-color:greenyellow ;">
+        {%if session['username' or session['email']]%}
+        <h4><strong><em>Features</em></strong></h4>
+        <ul class="text-center">
+            <p>You can do the following to a shopping list:</p>
+            <li>Add a shopping list</li>
+            <li>Delete a shopping list</li>
+            <p>You can do the following to an item</p>
+            <li>Add an item</li>
+            <li>Delete an item</li>
+        </ul>
+        {%else%}
+        <div style="background-color:white;">
+        <a href="/login" class="btn btn-lg btn-outline-success" role="button" aria-disabled="true">Login</a>
+        <a href="/signup" class="btn btn-lg btn-outline-success" role="button" aria-disabled="true">Signup</a>
+        </div>
+        {%endif%}
+        </div>   
 {% endblock%}
         
