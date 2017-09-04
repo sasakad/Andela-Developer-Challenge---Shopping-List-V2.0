@@ -37,14 +37,15 @@ class ShoppingListItems(object):
         else:
             return "Invalid characters"
 
-    def delete(self, item_name):
+    def delete(self, item_name, list_name):
         """METHOD FOR DELETING ITEM FROM SHOPPING LIST """
         if item_name == '':
             return 'Name cannot be blank'
-        elif item_name not in [item['name'] for item in self.list_of_shopping_list_items]:
+        elif item_name not in [item['name'] for item in self.list_of_shopping_list_items if item['list'] == list_name]:
             return "Item not found"
         else:
-            for item in self.list_of_shopping_list_items:
+            specific_shp_lst =[item for item in self.list_of_shopping_list_items if item['list'] == list_name]
+            for item in specific_shp_lst:
                 if item['name'] == item_name:
                     self.list_of_shopping_list_items.remove(item)
                     return self.list_of_shopping_list_items
