@@ -48,6 +48,7 @@ class ShoppingListItems(object):
                 if item['name'] == item_name:
                     self.list_of_shopping_list_items.remove(item)
                     return self.list_of_shopping_list_items
+                
     def edit(self, new_name, old_name, list_name, user):
         """METHOD FOR EDITING ITEM'S NAME IN SHOPPING LIST"""
         # Get users items
