@@ -24,7 +24,6 @@ class ShoppingLists(object):
                 'name': list_name,
                 'user': user,
                 'date': str(date.today()),
-                'details': "<a href='/details'>Item Details</a>",
             }
             self.list_of_shopping_lists.append(shopping_list_item)
         else:
