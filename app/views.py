@@ -76,14 +76,18 @@ def add():
     if request.method == 'POST':
         list_name = request.form['list_name']
         add_response = shopn_list.create(user, list_name)
-        if add_response == shopn_list.list_of_shopping_lists:
-            table_response = list_table_creator.ItemTable(add_response)
-            text_out = "Successfully added"
-            return render_template('dashboard.html', response=text_out, table_out= table_response)
+        if isinstance(add_response, list):
+            if add_response == shopn_list.list_of_shopping_lists:
+                table_response = list_table_creator.ItemTable(add_response)
+                text_out = "Successfully added"
+                return render_template('dashboard.html', response=text_out, table_out= table_response)
+            else:
+                table_response = list_table_creator.ItemTable(add_response)
+                text_out = "Unable to add the List Please Try again"
+                return render_template('dashboard.html', table_out = table_response)
         else:
-            table_response = list_table_creator.ItemTable(add_response)
-            text_out = "Unable to add the List Please Try again"
-            return render_template('dashboard.html', table_out = table_response)
+            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            return render_template('dashboard.html', response = add_response, table_out = table_response)
     return redirect(url_for('dashboard'))
 @app.route('/del_list', methods=['GET','POST'])
 @login_required
