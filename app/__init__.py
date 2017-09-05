@@ -10,5 +10,6 @@ usr_account = accounts.Accounts()
 shopn_list = shopping_lists.ShoppingLists()
 shopn_items = shopping_lists_items.ShoppingListItems()
 
+from app import views
 
 app.config.from_object('config')
