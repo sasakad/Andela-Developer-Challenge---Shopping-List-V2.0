@@ -60,6 +60,12 @@ class ShoppingListItems(object):
                     if item['name'] == old_name:
                         del item['name']
                         item.update({'name': new_name,})
+                        break
                 else:
-                    return "Name already exists"
+                    return "Name used on an existing item"
+        else:
+            if old_name not in [item['name'] for item in users_items]:
+                return "The Item you want to change does not exist"
+            else:
+                return "Unable to make changes please try again"
         return users_items
