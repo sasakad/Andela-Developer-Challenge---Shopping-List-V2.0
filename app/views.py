@@ -156,6 +156,7 @@ def add_item(list_name):
         if add_response == shopn_items.list_of_shopping_list_items:
             return redirect(url_for('details', list_name=list_name))
         else:
+            flash(add_response)
             return redirect(url_for('details', list_name=list_name))
     return redirect(url_for('details', list_name=list_name))
 
