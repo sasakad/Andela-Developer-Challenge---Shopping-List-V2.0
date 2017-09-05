@@ -53,19 +53,15 @@ class ShoppingListItems(object):
     def edit(self, new_name, old_name, list_name, user):
         """METHOD FOR EDITING ITEM'S NAME IN SHOPPING LIST"""
         # Get users items
-        users_items = self.get_user_items(user, list_name)
-        for item in users_items:
-            if item['list'] == list_name:
-                if item['name'] != new_name:
-                    if item['name'] == old_name:
-                        del item['name']
-                        item.update({'name': new_name,})
-                        break
-                else:
-                    return "Name used on an existing item"
+        users_list_items = self.get_user_items(user, list_name)
+        for item in users_list_items:
+                if new_name == item['name']:
+                    return "Name already used on another item"
         else:
-            if old_name not in [item['name'] for item in users_items]:
-                return "The Item you want to change does not exist"
-            else:
-                return "Unable to make changes please try again"
-        return users_items
+            for item in users_list_items:
+                if old_name == item['name']:
+                    del item['name']
+                    item.update({'name': new_name})
+                elif old_name not in [item['name'] for item in users_list_items]:
+                    return "The Item you want to change does not exist"
+        return users_list_items
