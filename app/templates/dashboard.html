@@ -6,11 +6,27 @@
             <form action="" method="POST">
                 <h5 class="form-signin-heading">Dashboard</h5>
                 <input type="text" class = "input-xlarge pull-right" placeholder="List name" name="list_name">
-                <button type="submit" class="btn btn-sm btn-outline-success pull-right" value="add" onclick='this.form.action="/dashboard/add_list";'>Add</button>       
+                <button type="submit" class="btn btn-sm btn-outline-success pull-right" value="add" onclick='this.form.action="/dashboard/add_list";'>Add</button>
+                <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#editModal">Edit</button>       
             </form>
         <div class="table-responsive table-striped table-hover">
             {{table_out}}
         </div>
         </fieldset>
+</div>
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="./edit_list" method="POST">
+                <input type="text" class = "input-xlarge " placeholder="Current List Name" name="old_name">
+                <input type="text" class = "input-xlarge " placeholder="New List Name" name="new_name">
+                <hr>
+                <button type="submit" class="btn btn-sm btn-outline-success " value="add">Update Changes</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
     </div>
-{% endblock%}
+</div>
+{%endblock%}
