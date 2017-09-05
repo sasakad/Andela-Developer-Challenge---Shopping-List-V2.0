@@ -33,6 +33,9 @@ To view this app on heroku [Click Here](https://shopping-list-app-c21-parseen.he
     `gunicorn app:app` or `python3 run.py`
     #### Then access the link you on your terminal 
 
+6. Running Tests
+    `nosetests --with-coverage --cover-package=tests`
+
 ## Currently working Features
 
 1. User Login
