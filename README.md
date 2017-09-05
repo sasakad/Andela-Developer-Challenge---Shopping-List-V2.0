@@ -4,7 +4,7 @@
 ## Build status
 Build status of continous integration by travis,
 
-[![Build Status](https://travis-ci.org/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0.svg?branch=ch-creating-and-integrating-flask-2098487)](https://travis-ci.org/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0)[![Coverage Status](https://coveralls.io/repos/github/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0/badge.svg?branch=ch-creating-and-integrating-flask-2098487)](https://coveralls.io/github/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0?branch=ch-creating-and-integrating-flask-2098487)
+[![Build Status](https://travis-ci.org/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0.svg?branch=ch-creating-and-integrating-flask-2098487)](https://travis-ci.org/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0)[![Coverage Status](https://coveralls.io/repos/github/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0/badge.svg?branch=master)](https://coveralls.io/github/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0?branch=ch-creating-and-integrating-flask-2098487)
 ## Front-End : Bootstrap
 ## Back-End: Flask Microframework
 
