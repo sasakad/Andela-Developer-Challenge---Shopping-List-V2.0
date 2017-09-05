@@ -65,3 +65,9 @@ class ShoppingListItems(object):
                 elif old_name not in [item['name'] for item in users_list_items]:
                     return "The Item you want to change does not exist"
         return users_list_items
+    def edit_parent_list(self, old_list_name, new_list_name, user):
+        users_list_items = self.get_user_items(user, old_list_name)
+        for item in users_list_items:
+                del item['list']
+                item.update({'list': new_list_name})
+
