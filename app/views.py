@@ -1,7 +1,7 @@
 """""FLASK'S VIEW FILE"""""
 
 from functools import wraps
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template, request, session, redirect, url_for, flash
 from app import app, usr_account, shopn_list, shopn_items
 from app import list_table_creator, item_table_creator
 
@@ -153,13 +153,12 @@ def edit_item(list_name):
         new_name = request.form['new_name']
         old_name = request.form['old_name']
         edit_response = shopn_items.edit(new_name,old_name,list_name,user)
-        if edit_response == shopn_items.list_of_shopping_list_items:
-            text_out = "Successfully added"
-            table_response = item_table_creator.ItemTable(edit_response)
+        if edit_response == shopn_items.get_user_items(user, list_name):
+            text_out = "Successfully changed {} to {}".format(old_name, new_name)
+            flash(text_out)
             return redirect(url_for('details', list_name=list_name))
         else:
-            table_response = item_table_creator.ItemTable(shopn_items.list_of_shopping_list_items)
-            #render_template('details.html', response=add_response, table_out=table_response)
+            flash(edit_response)
             return redirect(url_for('details', list_name = list_name))
     return redirect(url_for('details', list_name = list_name))
 
