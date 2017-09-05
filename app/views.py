@@ -90,11 +90,27 @@ def add():
             return render_template('dashboard.html', response = add_response, table_out = table_response)
     return redirect(url_for('dashboard'))
 
-@app.route('/dashboard/edit_list/', methods=['GET', 'POST'])
+@app.route('/dashboard/edit_list', methods=['GET', 'POST'])
 @login_required
 def edit_list():
-    pass
-
+    user = session['username']
+    if request.method == 'POST':
+        new_name = request.form['new_name']
+        old_name = request.form['old_name']
+        edit_response = shopn_list.edit(new_name, old_name, user)
+        if isinstance(edit_response, list):
+            if edit_response == shopn_list.list_of_shopping_lists:
+                table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+                text_out = "Successfully Changed {} to {}".format(old_name, new_name)
+                return render_template('dashboard.html', response=text_out, table_out= table_response)
+            else:
+                table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+                text_out = edit_response
+                return render_template('dashboard.html', table_out = table_response)
+        else:
+            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            return render_template('dashboard.html', response = edit_response, table_out = table_response)
+    return redirect(url_for('dashboard'))
 
 @app.route('/dashboard/del_list/<list_name>', methods=['GET', 'POST'])
 @login_required
@@ -128,10 +144,24 @@ def add_item(list_name):
             return redirect(url_for('details', list_name = list_name))
     return redirect(url_for('details', list_name = list_name))
 
-@app.route('/dashboard/edit_item/', methods=['GET', 'POST'])
+@app.route('/details/<list_name>/edit_item', methods=['GET', 'POST'])
 @login_required
-def edit_item():
-    pass
+def edit_item(list_name):
+    user = session['username']
+    list_name = list_name
+    if request.method == 'POST':
+        new_name = request.form['new_name']
+        old_name = request.form['old_name']
+        edit_response = shopn_items.edit(new_name,old_name,list_name,user)
+        if edit_response == shopn_items.list_of_shopping_list_items:
+            text_out = "Successfully added"
+            table_response = item_table_creator.ItemTable(edit_response)
+            return redirect(url_for('details', list_name=list_name))
+        else:
+            table_response = item_table_creator.ItemTable(shopn_items.list_of_shopping_list_items)
+            #render_template('details.html', response=add_response, table_out=table_response)
+            return redirect(url_for('details', list_name = list_name))
+    return redirect(url_for('details', list_name = list_name))
 
 
 @app.route('/del_item/<list_name>/<item_name>', methods=['GET','POST'])
