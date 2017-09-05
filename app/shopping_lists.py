@@ -36,10 +36,16 @@ class ShoppingLists(object):
             [item for item in self.list_of_shopping_lists if item['user'] == user]
             for item in users_list_of_shopping_lists:
                 if new_name == item['name']:
-                    return "Shopping list name already exists"
+                    return "Name already used on another list"
                 elif old_name == item['name']:
                     del item['name']
                     item.update({'name': new_name})
+                    break
+            else:
+                if old_name not in [item['name'] for item in self.list_of_shopping_lists if item['user'] == user]:
+                    return "The List you want to change does not exist"
+                else:
+                    return "Unable to make changes"
         else:
             return "Invalid characters"
         return self.users_list(user)
