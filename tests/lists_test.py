@@ -40,7 +40,7 @@ class TestCasesShoppingList(unittest.TestCase):
             'user': 'dalton', 'name': 'Birthday'}]
         msg = self._list.edit(
             'Birthday', 'Party', "dalton")
-        self.assertEqual(msg, "Shopping list name already exists")
+        self.assertEqual(msg, "Name already used on another list")
     def test_delete_shoppinglist(self):
         self._list.list_of_shopping_lists = [{'user': 'dalton', 'name': 'Rave'}, {
             'user': 'dalton', 'name': 'Party'}, {'user': 'dalton', 'name': 'Birthday'}]

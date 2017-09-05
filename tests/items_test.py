@@ -46,7 +46,7 @@ class TestCasesItems(unittest.TestCase):
             'user': 'dalton@yahoo.com', 'list': 'Adventure', 'name': 'Booze'}]
         msg = self.item.edit(
             'Snacks', 'Booze', 'Adventure', "dalton@yahoo.com")
-        self.assertEqual(msg, "Name already exists")
+        self.assertEqual(msg, "Name already used on another item")
 
     
 if __name__ == '__main__':
