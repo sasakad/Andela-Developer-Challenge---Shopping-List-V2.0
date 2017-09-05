@@ -35,12 +35,6 @@ To view this app on heroku [Click Here](https://shopping-list-app-c21-parseen.he
 
 6. Running Tests
     `nosetests --with-coverage --cover-package=tests`
-
-## Currently working Features
-
-1. User Login
-2. User Registration 
-
 ## License
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
