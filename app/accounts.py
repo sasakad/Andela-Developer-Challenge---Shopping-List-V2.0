@@ -12,14 +12,14 @@ class Accounts(object):
                 return account['uname']
 
     def login(self, email, pwd):
-            """Method for  Handling Login Requests"""
-            for account in self.list_of_accounts:
-                if email == account['email']:
-                    if pwd == account['pwd']:
-                        return "Success!"
-                    else:
-                        return "Invalid email, password combination"
-            return "Account not registered, sign up"
+        """Method for  Handling Login Requests"""
+        for account in self.list_of_accounts:
+            if email == account['email']:
+                if pwd == account['pwd']:
+                    return "Success!"
+                else:
+                    return "Invalid email, password combination"
+        return "Account not registered, sign up"
 
     def registration(self, uname, email, pwd, pwd_confirm):
         """Method for creating new accounts."""

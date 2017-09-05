@@ -6,8 +6,9 @@ class ShoppingLists(object):
 
     def __init__(self):
         self.list_of_shopping_lists = []
-    
+
     def users_list(self, user):
+        """Filters out shopping lists by user name"""
         return [item for item in self.list_of_shopping_lists if item['user'] == user]
 
     def create(self, user, list_name):
@@ -46,7 +47,9 @@ class ShoppingLists(object):
                         from app import shopn_items
                         shopn_items.edit_parent_list(old_name, new_name, user)
                         return self.users_list(user)
-                    elif old_name not in [item['name'] for item in self.list_of_shopping_lists if item['user'] == user]:
+                    elif old_name not in [item['name']
+                                          for item in self.list_of_shopping_lists
+                                          if item['user'] == user]:
                         return "The List you want to change does not exist"
         else:
             return "Invalid characters"
@@ -64,6 +67,5 @@ class ShoppingLists(object):
                 if item['name'] == list_name:
                     del self.list_of_shopping_lists[item_index]
                     return list_name + " has been Deleted"
-                    break
             return self.users_list(user)
     
