@@ -42,6 +42,9 @@ class ShoppingLists(object):
                     if old_name == item['name']:
                         del item['name']
                         item.update({'name': new_name})
+                        # Updating list name for items members of modified list
+                        from app import shopn_items
+                        shopn_items.edit_parent_list(old_name, new_name, user)
                         return self.users_list(user)
                     elif old_name not in [item['name'] for item in self.list_of_shopping_lists if item['user'] == user]:
                         return "The List you want to change does not exist"
