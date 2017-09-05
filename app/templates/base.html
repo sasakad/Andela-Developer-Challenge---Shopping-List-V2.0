@@ -28,6 +28,18 @@
                     </nav>
                 </div>
             </div> 
+            {%with messages = get_flashed_messages()%}
+            {%if messages%}
+            {%for message in messages%}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+            {{ message }}
+        </div>
+            {%endfor%}
+            {%endif%}
+            {%endwith%}
             {%if response in response%}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,7 +47,7 @@
                     </button>
                 {{ response }}
             </div>
-            {%endif%} 
+            {%endif%}
             {% block page_body %}
             {% endblock %}
             <script src="{{ url_for('static', filename='js/jquery-3.2.1.js') }}"></script>
