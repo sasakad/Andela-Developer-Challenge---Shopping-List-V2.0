@@ -8,8 +8,6 @@ class ItemTable(Table):
     name = Col('List\'s Name', allow_sort=False,th_html_attrs={'style':'width: 30%;'} )
     date = Col('Date Created', th_html_attrs={'style':'width: 30%;'})
     number = Col('Number of Items', th_html_attrs={'style':'width: 20%;'})
-    edit_button = ButtonCol('Edit', 'edit_item', button_attrs={'class':"btn btn-sm btn-outline-primary"},
-                url_kwargs={'item_name' : iname})
     del_button = ButtonCol('Delete', 'del_item', button_attrs={'class':"btn btn-sm btn-outline-danger"}, 
                 url_kwargs={'item_name' : iname, 'list_name': lname})
 
