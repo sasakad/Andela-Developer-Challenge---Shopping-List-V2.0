@@ -4,12 +4,12 @@ from flask_table import Table, Col, LinkCol, ButtonCol
 class ItemTable(Table):
     """THIS CREATES COLUMNS WITH ATTRIBUTES """
     lname = 'name'
-    name = Col('List\'s Name', th_html_attrs={'style':'width: 25%;'})
+    name = Col('Name', th_html_attrs={'style':'width: 25%;'})
     date = Col('Date Created', th_html_attrs={'style':'width: 25%;'})
     details = LinkCol('List Items', 'details', th_html_attrs={'style':'width: 25%;'},
                       url_kwargs={'list_name' : lname})
     del_button = ButtonCol('Delete', 'del_list',
-                           button_attrs={'class':"btn btn-sm btn-outline-danger"},
+                           button_attrs={'class':"btn btn-sm btn-danger"},
                            url_kwargs={'list_name' : lname})
 
 
