@@ -4,11 +4,14 @@
 <div class="container">
         <fieldset>
             <form action="" method="POST">
-                <h5 class="form-signin-heading">Dashboard</h5>
-                <input type="text" class = "input-xlarge pull-right" placeholder="List name" name="list_name">
-                <button type="submit" class="btn btn-sm btn-outline-success pull-right" value="add" onclick='this.form.action="/dashboard/add_list";'>Add</button>
+                <h5 class="form-signin-heading">{{user}}'s Dashboard</h5>
+                <br>
+                <input type="text" class = "input-xlarge" placeholder="List name" name="list_name">
+                <button type="submit" class="btn btn-sm btn-outline-success" value="add" onclick='this.form.action="/dashboard/add_list";'>Add</button>
                 <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#editModal">Edit</button>       
             </form>
+            <br>
+            <br>
         <div class="table-responsive table-striped table-hover">
             {{table_out}}
         </div>
