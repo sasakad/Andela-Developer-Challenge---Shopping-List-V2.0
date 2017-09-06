@@ -77,7 +77,9 @@ def login():
 @login_required
 def log_out():
     """LOGS USER OUT"""
+    username = str.capitalize(session['username'])
     session.clear()
+    flash("Goodbye {}".format(username), 'alert-warning')
     return render_template('index.html', response="You are now logged Out", alert_type="alert-info")
 
 @app.route('/dashboard/add_list', methods=['GET', 'POST'])
@@ -99,7 +101,10 @@ def add():
             else:
                 table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
                 text_out = "Unable to add the List Please Try again"
-                return render_template('dashboard.html', table_out=table_response, user=str.capitalize(user), alert_type="alert-danger")
+                return render_template('dashboard.html',
+                                       table_out=table_response,
+                                       user=str.capitalize(user),
+                                       alert_type="alert-danger")
         else:
             table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
             return render_template('dashboard.html',
