@@ -7,23 +7,42 @@
                 <p class=" lead">The Ultimate Shopping List App</p>
             </div>
     </div>
-    <div class="text-center" style=" background-color:greenyellow ;">
+    <div class="text-center" style=" background-color:aliceblue;">
         {%if session['username' or session['email']]%}
-        <h4><strong><em>Features</em></strong></h4>
-        <ul class="text-center">
-            <p>You can do the following to a shopping list:</p>
-            <li>Add a shopping list</li>
-            <li>Delete a shopping list</li>
-            <p>You can do the following to an item</p>
-            <li>Add an item</li>
-            <li>Delete an item</li>
-        </ul>
+        <div class='row justify-content-center' style="background-color:white;">
+                <div class="col-sm-2 offset-sm-3">
+                <ul>
+                    <a href="/dashboard" style="text-decoration:none;">
+                        <i class="fa fa-dashboard fa-3x"></i>
+                        <h3 class="cbp-ig-title">Go To Dashboard</h3>
+                    </a>
+                </ul>
+                </div>
+                <div class="col-sm-2">
+                <ul>
+                    <a href="mailto:david.parseen@gmail.com" style="text-decoration:none;">
+                        <i class="fa fa-envelope-o fa-3x"></i>
+                        <h3 class="cbp-ig-title">Email Me</h3>
+                    </a>
+                </ul>
+                </div>
+                <div class="col-sm-2">
+                <a href="https://github.com/parseendavid/Andela-Developer-Challenge---Shopping-List-V2.0" style="text-decoration:none;" >
+                    <ul>
+                        <i class="fa fa-github fa-3x"></i>
+                        <h3 class="cbp-ig-title">View Github Code</h3>
+                    </ul>
+                </a>
+                </div>
+        </div>
         {%else%}
         <div style="background-color:white;">
         <a href="/login" class="btn btn-lg btn-outline-success" role="button" aria-disabled="true">Login</a>
         <a href="/signup" class="btn btn-lg btn-outline-success" role="button" aria-disabled="true">Signup</a>
         </div>
         {%endif%}
-        </div>   
+        
+    </div>
+       
 {% endblock%}
         
