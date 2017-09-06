@@ -12,7 +12,6 @@ install:
 # Testing 
 script:
   - nosetests --with-coverage --cover-package=tests  && coverage report
-  - coveralls
 
-after-sucess:
+after-success:
   - coveralls
