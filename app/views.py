@@ -88,7 +88,7 @@ def add():
     """ADDS A SHOPPING LIST"""
     user = session['username']
     if request.method == 'POST':
-        list_name = request.form['list_name']
+        list_name = str.lower(request.form['list_name'])
         add_response = shopn_list.create(user, list_name)
         if isinstance(add_response, list):
             if add_response == shopn_list.list_of_shopping_lists:
@@ -120,8 +120,8 @@ def edit_list():
     """EDITS THE NAME OF A SHOPPING LIST"""
     user = session['username']
     if request.method == 'POST':
-        new_name = request.form['new_name']
-        old_name = request.form['old_name']
+        new_name = str.lower(request.form['new_name'])
+        old_name = str.lower(request.form['old_name'])
         edit_response = shopn_list.edit(new_name, old_name, user)
         if isinstance(edit_response, list):
             if edit_response == shopn_list.list_of_shopping_lists:
@@ -177,7 +177,7 @@ def add_item(list_name):
     """ADDS AN ITEM TO A SHOPPING LIST"""
     user = session['username']
     if request.method == 'POST':
-        item_name = request.form['item_name']
+        item_name = str.lower(request.form['item_name'])
         add_response = shopn_items.add(list_name, item_name, user)
         if add_response == shopn_items.list_of_shopping_list_items:
             flash('Sucessfully added.', 'alert-success')
@@ -194,8 +194,8 @@ def edit_item(list_name):
     user = session['username']
     list_name = list_name
     if request.method == 'POST':
-        new_name = request.form['new_name']
-        old_name = request.form['old_name']
+        new_name = str.lower(request.form['new_name'])
+        old_name = str.lower(request.form['old_name'])
         edit_response = shopn_items.edit(new_name, old_name, list_name, user)
         if edit_response == shopn_items.get_user_items(user, list_name):
             text_out = "Successfully changed {} to {}".format(old_name, new_name)
