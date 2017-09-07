@@ -4,7 +4,9 @@ class Accounts(object):
     """ CLASS FOR ACCOUNT CREATION AND LOGIN"""
     def __init__(self):
 
-        self.list_of_accounts = []
+        self.list_of_accounts = [{'name':'default',
+                                  'email':'default@user.com',
+                                  'password':'default'}]
     def get_uname_by_email(self, email):
         """Returns username when provided with email"""
         for account in self.list_of_accounts:
