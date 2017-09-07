@@ -5,7 +5,7 @@ class ItemTable(Table):
     """THIS CREATES COLUMNS WITH ATTRIBUTES """
     lname = 'name'
     name = Col('Name', th_html_attrs={'style':'width: 25%;'})
-    date = Col('Date Created', th_html_attrs={'style':'width: 25%;'})
+    date = Col('Date Created', th_html_attrs={'style':'width: 27%;'})
     details = LinkCol('List Items', 'details', th_html_attrs={'style':'width: 25%;'},
                       url_kwargs={'list_name' : lname})
     del_button = ButtonCol('Delete', 'del_list',
