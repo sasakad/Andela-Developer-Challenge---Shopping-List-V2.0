@@ -15,7 +15,7 @@ class ShoppingLists(object):
         """ METHOD FOR CREATING SHOPPING LIST """
         if list_name == '':
             return 'Name cannot be blank'
-        elif all(c in ascii_letters+'-' for c in list_name):
+        elif all(c in ascii_letters+'-'+' ' for c in list_name):
             users_list_of_shopping_lists = \
             [item for item in self.list_of_shopping_lists if item['user'] == user]
             for item in users_list_of_shopping_lists:
@@ -32,7 +32,7 @@ class ShoppingLists(object):
         return self.users_list(user)
     def edit(self, new_name, old_name, user):
         """METHOD FOR EDITING NAME OF SHOPPING LIST """
-        if all(c in ascii_letters+'-' for c in new_name):
+        if all(c in ascii_letters+'-'+' ' for c in new_name):
             users_list_of_shopping_lists = \
             [item for item in self.list_of_shopping_lists if item['user'] == user]
             for item in users_list_of_shopping_lists:
