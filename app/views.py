@@ -241,11 +241,18 @@ def del_item(item_name, list_name):
 
 @app.route('/details/<list_name>/share_list', methods=['GET', 'POST'])
 @login_required
-def share_list(list_name, share_with):
-    user = session['username']
-    share_response = shopn_list.share_list(list_name, user, share_with)
-    if isinstance(share_response, list):
-        flash("Thanks for sharing {}".format(list_name), 'alert-sucess')
-        redirect(url_for('dashboard'))
-    else:
-        flash(share_response, 'alert-danger')
+def share_list(list_name):
+    if request.method == 'POST': 
+        if request.form['share_with']:
+            share_with = request.form['share_with']
+            user = session['username']
+            share_response = shopn_list.share_list(list_name, user, share_with)
+            if isinstance(share_response, list):
+                flash("Thanks for sharing {}".format(str.capitalize(user)), 'alert-success')
+                redirect(url_for('dashboard'))
+            else:
+                flash(share_response, 'alert-danger')
+        else:
+            flash('Please specify who to share with')
+    
+    return redirect(url_for('details', list_name=list_name))

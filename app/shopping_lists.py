@@ -83,7 +83,8 @@ class ShoppingLists(object):
                 item['shared_list'].append(item)
             return self.list_of_shopping_lists
         elif isinstance(shared_with, str):
-            item['shared_list'].append(shared_with)
+            for item in this_list:
+                item['shared_with'].append(shared_with)
             return self.list_of_shopping_lists
         else:
             return "Unable to share please try again"
