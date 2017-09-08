@@ -180,7 +180,8 @@ def add_item(list_name):
     if request.method == 'POST':
         item_name = str.lower(request.form['item_name'])
         add_response = shopn_items.add(list_name, item_name, user)
-        if add_response == shopn_items.list_of_shopping_list_items:
+        if add_response == shopn_items.list_of_shopping_list_items \
+        or shopn_items.get_user_items(user, list_name):
             flash('Sucessfully added.', 'alert-success')
             return redirect(url_for('details', list_name=list_name))
         else:
