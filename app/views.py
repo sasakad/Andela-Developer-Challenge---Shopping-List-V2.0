@@ -42,7 +42,8 @@ def signup():
 def dashboard():
     """RENDERS THE DASHBOARD PAGE"""
     user = session['username']
-    table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+    print(shopn_list.users_list(user))
+    table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
     return render_template("dashboard.html", table_out=table_response, user=str.capitalize(user))
 @app.route('/details/<list_name>/', methods=['GET', 'POST'])
 @login_required
@@ -92,21 +93,21 @@ def add():
         add_response = shopn_list.create(user, list_name)
         if isinstance(add_response, list):
             if add_response == shopn_list.list_of_shopping_lists:
-                table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+                table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
                 text_out = "Successfully added"
                 return render_template('dashboard.html',
                                        response=text_out,
                                        table_out=table_response,
                                        user=str.capitalize(user))
             else:
-                table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+                table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
                 text_out = "Unable to add the List Please Try again"
                 return render_template('dashboard.html',
                                        table_out=table_response,
                                        user=str.capitalize(user),
                                        alert_type="alert-danger")
         else:
-            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
             return render_template('dashboard.html',
                                    response=add_response,
                                    table_out=table_response,
@@ -125,21 +126,21 @@ def edit_list():
         edit_response = shopn_list.edit(new_name, old_name, user)
         if isinstance(edit_response, list):
             if edit_response == shopn_list.list_of_shopping_lists:
-                table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+                table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
                 text_out = "Successfully Changed {} to {}".format(old_name, new_name)
                 return render_template('dashboard.html',
                                        response=text_out,
                                        table_out=table_response,
                                        user=str.capitalize(user))
             else:
-                table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+                table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
                 text_out = edit_response
                 return render_template('dashboard.html',
                                        table_out=table_response,
                                        user=str.capitalize(user),
                                        alert_type='alert-danger')
         else:
-            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
             return render_template('dashboard.html',
                                    response=edit_response,
                                    table_out=table_response,
@@ -157,14 +158,14 @@ def del_list(list_name):
         del_response = shopn_list.delete(list_name, user)
         if del_response == shopn_list.list_of_shopping_lists:
             text_out = "{} has been removed".format(list_name)
-            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
             return render_template('dashboard.html',
                                    response=text_out,
                                    table_out=table_response,
                                    user=str.capitalize(user),
                                    alert_type='alert-danger')
         else:
-            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
             return render_template('dashboard.html',
                                    response=del_response,
                                    table_out=table_response,
