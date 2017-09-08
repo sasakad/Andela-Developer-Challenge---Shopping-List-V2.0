@@ -66,7 +66,7 @@ def login():
         if msg == "Success!":
             session['email'] = email
             session['username'] = usr_account.get_uname_by_email(email)
-            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            table_response = list_table_creator.ItemTable(shopn_list.users_list(session['username']))
             return render_template('dashboard.html',
                                    response=msg,
                                    table_out=table_response,
