@@ -184,7 +184,10 @@ def add_item(list_name):
             flash('Sucessfully added.', 'alert-success')
             return redirect(url_for('details', list_name=list_name))
         else:
-            flash(add_response, 'alert-danger')
+            if add_response == str("Added 1 more " + item_name):
+                flash(add_response, 'alert-success')
+            else:
+                flash(add_response, 'alert-danger')
             return redirect(url_for('details', list_name=list_name))
     return redirect(url_for('details', list_name=list_name))
 
