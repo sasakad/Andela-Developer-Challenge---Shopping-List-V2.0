@@ -9,7 +9,9 @@ class ShoppingLists(object):
 
     def users_list(self, user):
         """Filters out shopping lists by user name"""
-        return [item for item in self.list_of_shopping_lists if item['user'] == user]
+        return [item for item in self.list_of_shopping_lists
+                if item['user'] == user
+                or user in item['shared_with']]
 
     def create(self, user, list_name):
         """ METHOD FOR CREATING SHOPPING LIST """

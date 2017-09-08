@@ -66,7 +66,7 @@ def login():
         if msg == "Success!":
             session['email'] = email
             session['username'] = usr_account.get_uname_by_email(email)
-            table_response = list_table_creator.ItemTable(shopn_list.list_of_shopping_lists)
+            table_response = list_table_creator.ItemTable(shopn_list.users_list(session['username']))
             return render_template('dashboard.html',
                                    response=msg,
                                    table_out=table_response,
@@ -238,3 +238,14 @@ def del_item(item_name, list_name):
                                    list_name=str.capitalize(list_name),
                                    alert_type='alert-dander')
     return redirect(url_for('details'))
+
+@app.route('/details/<list_name>/share_list', methods=['GET', 'POST'])
+@login_required
+def share_list(list_name, share_with):
+    user = session['username']
+    share_response = shopn_list.share_list(list_name, user, share_with)
+    if isinstance(share_response, list):
+        flash("Thanks for sharing {}".format(list_name), 'alert-sucess')
+        redirect(url_for('dashboard'))
+    else:
+        flash(share_response, 'alert-danger')
