@@ -25,6 +25,7 @@ class ShoppingLists(object):
                 'name': list_name,
                 'user': user,
                 'date': str(date.today()),
+                'shared_with':[]
             }
             self.list_of_shopping_lists.append(shopping_list_item)
         else:
@@ -68,4 +69,13 @@ class ShoppingLists(object):
                     del self.list_of_shopping_lists[item_index]
                     return list_name + " has been Deleted"
             return self.users_list(user)
-    
+    def share_list(self, list_name, user, shared_with):
+        if isinstance(shared_with, list):
+            for item in shared_with:
+                self.shared_with.append(item)
+            return "Thank you for sharing"
+        elif isinstance(shared_with, str):
+            self.shared_with.append(shared_with)
+            return "Thank you for sharing"
+        else:
+            return "Unable to share please try again"
