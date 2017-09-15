@@ -66,7 +66,8 @@ def login():
         if msg == "Success!":
             session['email'] = email
             session['username'] = usr_account.get_uname_by_email(email)
-            table_response = list_table_creator.ItemTable(shopn_list.users_list(session['username']))
+            table_response = list_table_creator.ItemTable(
+                shopn_list.users_list(session['username']))
             return render_template('dashboard.html',
                                    response=msg,
                                    table_out=table_response,
@@ -242,17 +243,31 @@ def del_item(item_name, list_name):
 @app.route('/details/<list_name>/share_list', methods=['GET', 'POST'])
 @login_required
 def share_list(list_name):
-    if request.method == 'POST': 
+    """This function shares a list with a specified user or users"""
+    if request.method == 'POST':
         if request.form['share_with']:
-            share_with = request.form['share_with']
+            share_with = request.form['share_with'].lower()
             user = session['username']
-            share_response = shopn_list.share_list(list_name, user, share_with)
+            shared_with_list = share_with.split(',')
+            for item in shared_with_list:
+                if item in list_name['shared_with']:
+                    flash('You had already shared with {}'.format(item),
+                          'alert-warning')
+                    shared_with_list.remove(item)
+                elif item not in [item['uname'] for item in usr_account.list_of_accounts]:
+                    flash('{} does not exist'.format(item),
+                          'alert-warning')
+                    shared_with_list.remove(item)
+            share_response = shopn_list.share_list(list_name, user, shared_with_list)
             if isinstance(share_response, list):
-                flash("Thank you for sharing \"{}\" with {}".format(str.capitalize(list_name), str.capitalize(share_with)), 'alert-success')
+                flash("Thank you for sharing \"{}\" with {}"
+                      .format(str.capitalize(list_name),
+                              str.capitalize(share_with)),
+                      'alert-success')
                 redirect(url_for('dashboard'))
             else:
                 flash(share_response, 'alert-danger')
         else:
-            flash('Please specify who to share with')
-    
+            flash('Please specify who to share with', 'alert-danger')
+
     return redirect(url_for('details', list_name=list_name))
