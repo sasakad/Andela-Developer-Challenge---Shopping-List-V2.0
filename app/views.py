@@ -248,7 +248,7 @@ def share_list(list_name):
             user = session['username']
             share_response = shopn_list.share_list(list_name, user, share_with)
             if isinstance(share_response, list):
-                flash("Thanks for sharing {}".format(str.capitalize(user)), 'alert-success')
+                flash("Thank you for sharing \"{}\" with {}".format(str.capitalize(list_name), str.capitalize(share_with)), 'alert-success')
                 redirect(url_for('dashboard'))
             else:
                 flash(share_response, 'alert-danger')
