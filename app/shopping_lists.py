@@ -71,20 +71,15 @@ class ShoppingLists(object):
                     del self.list_of_shopping_lists[item_index]
                     return list_name + " has been Deleted"
             return self.users_list(user)
-    def share_list(self, list_name, user, shared_with):
+    def share_list(self, list_name, user, shared_with_list):
         """This method is for sharing a list with other users"""
         this_list = [item
                      for item in self.list_of_shopping_lists
                      if item['name'] == list_name
                      and item['user'] == user
                     ]
-        if isinstance(shared_with, list):
-            for item in this_list:
-                item['shared_list'].append(item)
-            return self.list_of_shopping_lists
-        elif isinstance(shared_with, str):
-            for item in this_list:
-                item['shared_with'].append(shared_with)
+        if isinstance(shared_with_list, list):
+            this_list['shared_list'].extend(shared_with_list)
             return self.list_of_shopping_lists
         else:
             return "Unable to share please try again"
