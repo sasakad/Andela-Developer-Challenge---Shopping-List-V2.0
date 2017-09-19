@@ -20,7 +20,7 @@ class ShoppingListItems(object):
         """METHOD FOR ADDING ITEMS IN SHOPPING LIST """
         if item_name == '':
             return 'Name cannot be blank'
-        elif all(c in ascii_letters+'-' for c in item_name):
+        elif all(c in ascii_letters+'-'+' ' for c in item_name):
             users_items = self.get_user_items(user, list_name)
             for item in users_items:
                 if item['name'] == item_name:
