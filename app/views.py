@@ -42,7 +42,7 @@ def signup():
 def dashboard():
     """RENDERS THE DASHBOARD PAGE"""
     user = session['username']
-    print(shopn_list.users_list(user))
+    #print(shopn_list.users_list(user))
     table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
     return render_template("dashboard.html", table_out=table_response, user=str.capitalize(user))
 @app.route('/details/<list_name>/', methods=['GET', 'POST'])
@@ -250,7 +250,10 @@ def share_list(list_name):
             user = session['username']
             shared_with_list = share_with.split(',')
             for item in shared_with_list:
-                if item in list_name['shared_with']:
+                #print(list_name)
+                if item in [item['shared_with']
+                            for item in shopn_list.users_list(user)
+                            if item['name'] == list_name]:
                     flash('You had already shared with {}'.format(item),
                           'alert-warning')
                     shared_with_list.remove(item)
