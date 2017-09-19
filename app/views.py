@@ -42,7 +42,7 @@ def signup():
 def dashboard():
     """RENDERS THE DASHBOARD PAGE"""
     user = session['username']
-    print(shopn_list.users_list(user))
+    #print(shopn_list.users_list(user))
     table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
     return render_template("dashboard.html", table_out=table_response, user=str.capitalize(user))
 @app.route('/details/<list_name>/', methods=['GET', 'POST'])
@@ -66,7 +66,8 @@ def login():
         if msg == "Success!":
             session['email'] = email
             session['username'] = usr_account.get_uname_by_email(email)
-            table_response = list_table_creator.ItemTable(shopn_list.users_list(session['username']))
+            table_response = list_table_creator.ItemTable(
+                shopn_list.users_list(session['username'])
             return render_template('dashboard.html',
                                    response=msg,
                                    table_out=table_response,
@@ -238,3 +239,38 @@ def del_item(item_name, list_name):
                                    list_name=str.capitalize(list_name),
                                    alert_type='alert-dander')
     return redirect(url_for('details'))
+
+@app.route('/details/<list_name>/share_list', methods=['GET', 'POST'])
+@login_required
+def share_list(list_name):
+    """This function shares a list with a specified user or users"""
+    if request.method == 'POST':
+        if request.form['share_with']:
+            share_with = request.form['share_with'].lower()
+            user = session['username']
+            shared_with_list = share_with.split(',')
+            for item in shared_with_list:
+                #print(list_name)
+                if item in [item['shared_with']
+                            for item in shopn_list.users_list(user)
+                            if item['name'] == list_name]:
+                    flash('You had already shared with {}'.format(item),
+                          'alert-warning')
+                    shared_with_list.remove(item)
+                elif item not in [item['uname'] for item in usr_account.list_of_accounts]:
+                    flash('{} does not exist'.format(item),
+                          'alert-warning')
+                    shared_with_list.remove(item)
+            share_response = shopn_list.share_list(list_name, user, shared_with_list)
+            if isinstance(share_response, list):
+                flash("Thank you for sharing \"{}\" with {}"
+                      .format(str.capitalize(list_name),
+                              str.capitalize(share_with)),
+                      'alert-success')
+                redirect(url_for('dashboard'))
+            else:
+                flash(share_response, 'alert-danger')
+        else:
+            flash('Please specify who to share with', 'alert-danger')
+
+    return redirect(url_for('details', list_name=list_name))

@@ -1,23 +1,28 @@
 """THIS CREATES TABLE TO BE SERVED TO DASHBOARD"""
 from flask_table import Table, Col, LinkCol, ButtonCol
+from flask import session
 
 class ItemTable(Table):
     """THIS CREATES COLUMNS WITH ATTRIBUTES """
     lname = 'name'
-    name = Col('Name', th_html_attrs={'style':'width: 25%;'})
+    name = Col('Name', th_html_attrs={'style':'width: 27%;'})
     date = Col('Date Created', th_html_attrs={'style':'width: 27%;'})
-    details = LinkCol('List Items', 'details', th_html_attrs={'style':'width: 25%;'},
+    details = LinkCol('List Items', 'details', th_html_attrs={'style':'width: 20%;'},
                       url_kwargs={'list_name' : lname})
+    user = Col('Owner', 'user', th_html_attrs={'style':'width: 13%;'})
     del_button = ButtonCol('Delete', 'del_list',
                            button_attrs={'class':"btn btn-sm btn-danger"},
+                           th_html_attrs={'style':'width: 13%;'},
                            url_kwargs={'list_name' : lname})
 
 
 # Get some objects
 class Item(object):
     """THIS ENTERS DATA INTO THE CREATED COLUMNS"""
-    def __init__(self, name, date, details, del_button):
+    def __init__(self, name, date, details, del_button, user):
         self.lname = name
         self.date = date
         self.details = details
-        self.del_button = del_button
+        self.owner = user
+        # if self.owner == session['username']:
+        #     self.del_button = del_button

@@ -9,8 +9,9 @@ class ShoppingLists(object):
 
     def users_list(self, user):
         """Filters out shopping lists by user name"""
-        return [item for item in self.list_of_shopping_lists if item['user'] == user]
-
+        return [item for item in self.list_of_shopping_lists
+                if item['user'] == user
+                or user in item['shared_with']]
     def create(self, user, list_name):
         """ METHOD FOR CREATING SHOPPING LIST """
         if list_name == '':
@@ -25,6 +26,7 @@ class ShoppingLists(object):
                 'name': list_name,
                 'user': user,
                 'date': str(date.today()),
+                'shared_with':[]
             }
             self.list_of_shopping_lists.append(shopping_list_item)
         else:
@@ -68,4 +70,17 @@ class ShoppingLists(object):
                     del self.list_of_shopping_lists[item_index]
                     return list_name + " has been Deleted"
             return self.users_list(user)
-    
+    def share_list(self, list_name, user, shared_with_list):
+        """This method is for sharing a list with other users"""
+        this_list = [item
+                     for item in self.list_of_shopping_lists
+                     if item['name'] == list_name
+                     and item['user'] == user
+                    ]
+        if len(this_list) > 0:
+            print(self.list_of_shopping_lists, this_list, this_list[0])
+            if isinstance(shared_with_list, list) and len(this_list) != 0:
+                this_list[0]['shared_with'].extend(shared_with_list)
+                return self.list_of_shopping_lists
+        else:
+            return "Unable to share please try again"
