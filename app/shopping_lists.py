@@ -12,12 +12,11 @@ class ShoppingLists(object):
         return [item for item in self.list_of_shopping_lists
                 if item['user'] == user
                 or user in item['shared_with']]
-
     def create(self, user, list_name):
         """ METHOD FOR CREATING SHOPPING LIST """
         if list_name == '':
             return 'Name cannot be blank'
-        elif all(c in ascii_letters+'-' for c in list_name):
+        elif all(c in ascii_letters+'-'+' ' for c in list_name):
             users_list_of_shopping_lists = \
             [item for item in self.list_of_shopping_lists if item['user'] == user]
             for item in users_list_of_shopping_lists:
@@ -35,7 +34,7 @@ class ShoppingLists(object):
         return self.users_list(user)
     def edit(self, new_name, old_name, user):
         """METHOD FOR EDITING NAME OF SHOPPING LIST """
-        if all(c in ascii_letters+'-' for c in new_name):
+        if all(c in ascii_letters+'-'+' ' for c in new_name):
             users_list_of_shopping_lists = \
             [item for item in self.list_of_shopping_lists if item['user'] == user]
             for item in users_list_of_shopping_lists:
@@ -78,8 +77,10 @@ class ShoppingLists(object):
                      if item['name'] == list_name
                      and item['user'] == user
                     ]
-        if isinstance(shared_with_list, list):
-            this_list['shared_list'].extend(shared_with_list)
-            return self.list_of_shopping_lists
+        if len(this_list) > 0:
+            print(self.list_of_shopping_lists, this_list, this_list[0])
+            if isinstance(shared_with_list, list) and len(this_list) != 0:
+                this_list[0]['shared_with'].extend(shared_with_list)
+                return self.list_of_shopping_lists
         else:
             return "Unable to share please try again"
