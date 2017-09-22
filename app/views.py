@@ -250,8 +250,11 @@ def share_list(list_name):
             user = session['username']
             shared_with_list = share_with.split(',')
             for item in shared_with_list:
-                #print(list_name)
-                if item in [item['shared_with']
+                if item == user:
+                    flash("You cannot share to yourself",
+                          'alert-danger')
+                    shared_with_list.remove(item)
+                elif item in [item['shared_with']
                             for item in shopn_list.users_list(user)
                             if item['name'] == list_name]:
                     flash('You had already shared with {}'.format(item),
