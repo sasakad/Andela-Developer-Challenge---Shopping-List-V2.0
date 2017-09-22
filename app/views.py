@@ -50,17 +50,20 @@ def dashboard(old_name=" "):
                            table_out=table_response,
                            user=str.capitalize(user),
                            old_name=old_name)
+@app.route('/details/<list_name>/<item_name>', methods=['GET', 'POST'])
 @app.route('/details/<list_name>/', methods=['GET', 'POST'])
 @login_required
-def details(list_name):
+def details(list_name, item_name=""):
     """Loads the details page"""
+    item_name = item_name
     specific_list_items = [item
                            for item in shopn_items.list_of_shopping_list_items
                            if item['list'] == list_name]
     table_response = item_table_creator.ItemTable(specific_list_items)
     return render_template("details.html",
                            table_out=table_response,
-                           list_name=str.capitalize(list_name))
+                           list_name=str.capitalize(list_name),
+                           item_name = item_name)
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """HANDLES REQUESTS SENT BY LOGIN PAGE"""
@@ -132,29 +135,32 @@ def edit_list(old_name=""):
     elif request.method == 'POST':
         new_name = str.lower(request.form['new_name'])
         old_name = str.lower(request.form['old_name'])
-        edit_response = shopn_list.edit(new_name, old_name, user)
-        if isinstance(edit_response, list):
-            if edit_response == shopn_list.list_of_shopping_lists:
-                table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
-                text_out = "Successfully Changed {} to {}".format(old_name, new_name)
-                return render_template('dashboard.html',
-                                       response=text_out,
-                                       table_out=table_response,
-                                       user=str.capitalize(user))
+        if new_name and old_name:
+            edit_response = shopn_list.edit(new_name, old_name, user)
+            if isinstance(edit_response, list):
+                if edit_response == shopn_list.list_of_shopping_lists:
+                    table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
+                    text_out = "Successfully Changed {} to {}".format(old_name, new_name)
+                    return render_template('dashboard.html',
+                                        response=text_out,
+                                        table_out=table_response,
+                                        user=str.capitalize(user))
+                else:
+                    table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
+                    text_out = edit_response
+                    return render_template('dashboard.html',
+                                        table_out=table_response,
+                                        user=str.capitalize(user),
+                                        alert_type='alert-danger')
             else:
                 table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
-                text_out = edit_response
                 return render_template('dashboard.html',
-                                       table_out=table_response,
-                                       user=str.capitalize(user),
-                                       alert_type='alert-danger')
+                                    response=edit_response,
+                                    table_out=table_response,
+                                    user=str.capitalize(user),
+                                    alert_type='alert-danger')
         else:
-            table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
-            return render_template('dashboard.html',
-                                   response=edit_response,
-                                   table_out=table_response,
-                                   user=str.capitalize(user),
-                                   alert_type='alert-danger')
+            flash("New name cannot be blank", 'alert-warning')
     return redirect(url_for('dashboard'))
 
 @app.route('/dashboard/del_list/<list_name>', methods=['GET', 'POST'])
@@ -201,23 +207,31 @@ def add_item(list_name):
             return redirect(url_for('details', list_name=list_name))
     return redirect(url_for('details', list_name=list_name))
 
+@app.route('/details/<list_name>/edit_item/<item_name>', methods=['GET', 'POST'])
 @app.route('/details/<list_name>/edit_item', methods=['GET', 'POST'])
 @login_required
-def edit_item(list_name):
+def edit_item(list_name, item_name=""):
     """EDITS AN ITEMS NAME"""
     user = session['username']
     list_name = list_name
-    if request.method == 'POST':
+    if item_name:
+        return redirect(url_for('details',
+                                list_name=list_name,
+                                item_name=item_name) + '#editModal')
+    elif request.method == 'POST':
         new_name = str.lower(request.form['new_name'])
         old_name = str.lower(request.form['old_name'])
-        edit_response = shopn_items.edit(new_name, old_name, list_name, user)
-        if edit_response == shopn_items.get_user_items(user, list_name):
-            text_out = "Successfully changed {} to {}".format(old_name, new_name)
-            flash(text_out, 'alert-success')
-            return redirect(url_for('details', list_name=list_name))
+        if new_name and old_name:
+            edit_response = shopn_items.edit(new_name, old_name, list_name, user)
+            if edit_response == shopn_items.get_user_items(user, list_name):
+                text_out = "Successfully changed {} to {}".format(old_name, new_name)
+                flash(text_out, 'alert-success')
+                return redirect(url_for('details', list_name=list_name))
+            else:
+                flash(edit_response, 'alert-danger')
+                return redirect(url_for('details', list_name=list_name))
         else:
-            flash(edit_response, 'alert-danger')
-            return redirect(url_for('details', list_name=list_name))
+            flash("New Item Name cannot be blank", 'alert-warning')
     return redirect(url_for('details', list_name=list_name))
 
 
