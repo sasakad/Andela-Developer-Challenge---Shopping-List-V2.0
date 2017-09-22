@@ -10,6 +10,10 @@ class ItemTable(Table):
     details = LinkCol('List Items', 'details', th_html_attrs={'style':'width: 20%;'},
                       url_kwargs={'list_name' : lname})
     user = Col('Owner', 'user', th_html_attrs={'style':'width: 13%;'})
+    edit_button = ButtonCol('Edit Name', 'edit_list',
+                        button_attrs={'class':"btn btn-sm btn-primary"},
+                        th_html_attrs={'style':'width: 13%;'},
+                        url_kwargs={'old_name' : lname})
     del_button = ButtonCol('Delete', 'del_list',
                            button_attrs={'class':"btn btn-sm btn-danger"},
                            th_html_attrs={'style':'width: 13%;'},
@@ -19,10 +23,8 @@ class ItemTable(Table):
 # Get some objects
 class Item(object):
     """THIS ENTERS DATA INTO THE CREATED COLUMNS"""
-    def __init__(self, name, date, details, del_button, user):
+    def __init__(self, name, date, details, user):
         self.lname = name
         self.date = date
         self.details = details
         self.owner = user
-        # if self.owner == session['username']:
-        #     self.del_button = del_button

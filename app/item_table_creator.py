@@ -9,6 +9,9 @@ class ItemTable(Table):
     name = Col('List\'s Name', th_html_attrs={'style':'width: 30%;'})
     date = Col('Date Created', th_html_attrs={'style':'width: 30%;'})
     number = Col('Number of Items', th_html_attrs={'style':'width: 15%;'})
+    edit_button = ButtonCol('Edit Item', 'edit_item',
+                           button_attrs={'class':"btn btn-sm btn-primary"},
+                           url_kwargs={'item_name' : iname, 'list_name': lname})
     del_button = ButtonCol('Delete', 'del_item',
                            button_attrs={'class':"btn btn-sm btn-danger"},
                            url_kwargs={'item_name' : iname, 'list_name': lname})

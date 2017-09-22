@@ -19,7 +19,8 @@ class TestCasesShoppingList(unittest.TestCase):
         msg = self._list.create("dalton", 'Party')
         self.assertEqual(msg, [{'user': 'dalton',
                                 'name': 'Party',
-                                'date': str(date.today())}])
+                                'date': str(date.today()),
+                                'shared_with': []}])
 
     def test_for_invalid_characters(self):
         """CHECKS BEHAVIOUR ON INVALID CHARACTERS"""
