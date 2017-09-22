@@ -37,14 +37,19 @@ def signup():
         else:
             return render_template("signup.html", response=msg)
     return render_template("signup.html")
+@app.route('/dashboard/<old_name>', methods=['GET', 'POST'])
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
-def dashboard():
+def dashboard(old_name=" "):
     """RENDERS THE DASHBOARD PAGE"""
+    old_name = old_name
     user = session['username']
     #print(shopn_list.users_list(user))
     table_response = list_table_creator.ItemTable(shopn_list.users_list(user))
-    return render_template("dashboard.html", table_out=table_response, user=str.capitalize(user))
+    return render_template("dashboard.html",
+                           table_out=table_response,
+                           user=str.capitalize(user),
+                           old_name=old_name)
 @app.route('/details/<list_name>/', methods=['GET', 'POST'])
 @login_required
 def details(list_name):
@@ -116,12 +121,15 @@ def add():
                                    alert_type='alert-danger')
     return redirect(url_for('dashboard'))
 
+@app.route('/dashboard/edit_list/<old_name>', methods=['GET', 'POST'])
 @app.route('/dashboard/edit_list', methods=['GET', 'POST'])
 @login_required
-def edit_list():
+def edit_list(old_name=""):
     """EDITS THE NAME OF A SHOPPING LIST"""
     user = session['username']
-    if request.method == 'POST':
+    if old_name:
+        return redirect(url_for('dashboard', old_name=old_name) + '#editModal')
+    elif request.method == 'POST':
         new_name = str.lower(request.form['new_name'])
         old_name = str.lower(request.form['old_name'])
         edit_response = shopn_list.edit(new_name, old_name, user)
@@ -255,8 +263,8 @@ def share_list(list_name):
                           'alert-danger')
                     shared_with_list.remove(item)
                 elif item in [item['shared_with']
-                            for item in shopn_list.users_list(user)
-                            if item['name'] == list_name]:
+                              for item in shopn_list.users_list(user)
+                              if item['name'] == list_name]:
                     flash('You had already shared with {}'.format(item),
                           'alert-warning')
                     shared_with_list.remove(item)
